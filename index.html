@@ -1,0 +1,27 @@
+const TOKEN = "YOUR_GITHUB_TOKEN"; // with gist permissions
+const data = {
+  description: "BAR = Aluminum Price HTML",
+  public: true,
+  files: {
+    "index.html": {
+      content: `<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  ... (rest of your code) ...
+</html>`
+    }
+  }
+};
+
+fetch("https://api.github.com/gists", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+    "Authorization": `token ${TOKEN}`
+  },
+  body: JSON.stringify(data)
+})
+.then(res => res.json())
+.then(res => console.log("Gist URL:", res.html_url))
+.catch(console.error);
